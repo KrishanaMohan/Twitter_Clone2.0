@@ -1,5 +1,5 @@
 package com.example.Twitter_Clone20.Services;
-import com.example.Twitter_Clone20.Controller.JWT.JwtService;
+import com.example.Twitter_Clone20.JWT.JwtService;
 import com.example.Twitter_Clone20.Model.User;
 import com.example.Twitter_Clone20.Repository.UserRepository;
 import com.example.Twitter_Clone20.ResquestDto.LoginDto;

@@ -1,4 +1,4 @@
-package com.example.Twitter_Clone20.Controller.JWT;
+package com.example.Twitter_Clone20.JWT;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
