@@ -1,42 +1,27 @@
 package com.example.Twitter_Clone20.ResquestDto;
 
-import java.util.Date;
+import jakarta.validation.constraints.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import java.util.Date;
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class UserDto {
+
+    @NotNull(message = "username shouldn't be null")
     private String name;
     private String password;
+    @Pattern(regexp = "^\\d{10}$",message = "invalid Mobile Number")
+    private String mobile;
+    @Email(message = "invalid email Address")
     private String email;
+    @Min(value = 18,message = "Your age is Less than 18")
+    @Max(value = 100,message = "Your age is Greater than 100")
+    private int age;
+    private  String gender;
     private Date dob;
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public Date getDob() {
-        return dob;
-    }
-
-    public void setDob(Date dob) {
-        this.dob = dob;
-    }
 }

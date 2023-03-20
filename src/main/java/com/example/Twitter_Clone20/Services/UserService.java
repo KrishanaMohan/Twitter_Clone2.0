@@ -1,6 +1,6 @@
 package com.example.Twitter_Clone20.Services;
-
 import com.example.Twitter_Clone20.Model.User;
+import com.example.Twitter_Clone20.Repository.UserRepository;
 import com.example.Twitter_Clone20.ResquestDto.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,38 +8,43 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserService {
     @Autowired
-    com.example.Twitter_Clone20.Repository.UserRepository UserRepository;
+    UserRepository userRepository;
 
-    public void resistration ( UserDto userDto){
+    public void registration ( UserDto userDto){
         User user=new User();
        user.setDob(userDto.getDob());
         user.setEmail(userDto.getEmail());
         user.setName(userDto.getName());
         user.setPassword(userDto.getPassword());
-        UserRepository.save(user);
+        user.setMobile(userDto.getMobile());
+        user.setAge(userDto.getAge());
+        user.setGender(userDto.getGender());
+        userRepository.save(user);
     }
     public void UpdateUser (UserDto newinfo){
-        User user=UserRepository.findByName(newinfo.getName());
+        User user=userRepository.findByName(newinfo.getName());
         user.setDob(newinfo.getDob());
         user.setEmail(newinfo.getEmail());
         user.setName(newinfo.getName());
         user.setPassword(newinfo.getPassword());
-        UserRepository.save(user);
+        userRepository.save(user);
     }
 
     public User getUserByName (String  userName){
-        User user=UserRepository.findByName(userName);
+        User user=userRepository.findByName(userName);
        return user;
     }
 
-    public User getUserById(Integer userId){
-        User user=UserRepository.findById(userId).get();
-        return user;
-    }
+    public User getUserById(Integer userId) throws Exception {
+        User user=userRepository.findById(userId).get();
+        if(user==null){
+            throw new Exception();
+        }
+         return user;
 
+    }
     public void  DeleteAccountByName(String name){
-        User user=UserRepository.findByName(name);
-        UserRepository.delete(user);
+        User user=userRepository.findByName(name);
+        userRepository.delete(user);
     }
-
 }

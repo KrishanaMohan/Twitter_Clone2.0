@@ -7,9 +7,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class TweetDto {
-    private String tweetBy;
-    private String msg;
-
+public class UnFollowDto {
+    private String unfollowBy;
+    private String unfollowTo;
 
 }
