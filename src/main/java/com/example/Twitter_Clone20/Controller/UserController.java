@@ -1,5 +1,7 @@
 package com.example.Twitter_Clone20.Controller;
+import com.example.Twitter_Clone20.Controller.JWT.JwtService;
 import com.example.Twitter_Clone20.Model.User;
+import com.example.Twitter_Clone20.ResquestDto.LoginDto;
 import com.example.Twitter_Clone20.ResquestDto.UserDto;
 import com.example.Twitter_Clone20.Services.UserService;
 import jakarta.validation.Valid;
@@ -13,16 +15,17 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
     @Autowired
     UserService userService;
+
     @PostMapping("/Registration")
     public ResponseEntity<String> registration (@RequestBody @Valid UserDto userDto){
         userService.registration(userDto);
         return new ResponseEntity<>("User registration successfully", HttpStatus.OK);
     }
-//    @PostMapping ("/Login")
-//    public ResponseEntity<String> Login (@RequestBody LoginDto loginDto){
-//      String token=  service.Login(userDto);
-//        return new ResponseEntity<>(token, HttpStatus.OK);
-//    }
+    @PostMapping ("/Login")
+    public ResponseEntity<String> Login (@RequestBody LoginDto loginDto) throws Exception{
+      String token=  userService.Authentication(loginDto);
+        return new ResponseEntity<>(token, HttpStatus.OK);
+    }
 
     @PutMapping("/UpdateUser")
     public ResponseEntity<String> UpdateUser (@RequestBody UserDto newinfo){

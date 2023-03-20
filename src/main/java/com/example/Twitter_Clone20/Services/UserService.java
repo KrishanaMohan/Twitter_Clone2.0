@@ -1,6 +1,8 @@
 package com.example.Twitter_Clone20.Services;
+import com.example.Twitter_Clone20.Controller.JWT.JwtService;
 import com.example.Twitter_Clone20.Model.User;
 import com.example.Twitter_Clone20.Repository.UserRepository;
+import com.example.Twitter_Clone20.ResquestDto.LoginDto;
 import com.example.Twitter_Clone20.ResquestDto.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,6 +11,8 @@ import org.springframework.stereotype.Service;
 public class UserService {
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    JwtService jwtService;
 
     public void registration ( UserDto userDto){
         User user=new User();
@@ -46,5 +50,12 @@ public class UserService {
     public void  DeleteAccountByName(String name){
         User user=userRepository.findByName(name);
         userRepository.delete(user);
+    }
+    public String Authentication(LoginDto loginDto) throws Exception{
+        User user=userRepository.findByName(loginDto.getName());
+        if(user==null|| !user.getPassword().equals(loginDto.getPassword()))
+             throw new Exception("UserName or Password is Wrong");
+
+       return  jwtService.generateToken(loginDto.getName());
     }
 }
